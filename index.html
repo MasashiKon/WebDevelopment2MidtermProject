@@ -16,8 +16,7 @@
         <div id="cart">
             <span>cart</span><i class="fa-solid fa-cart-shopping"></i>
             <div id="cartContent">
-                <ul id="contentList">
-                </ul>
+                <div>Are you hungry?<br/>Make your own burger!</div>
             </div>
         </div>
     </nav>
@@ -25,11 +24,19 @@
     <section class="menu">
         <div id="menuList" class="menuList"> 
             <ul id="breadList" class="menuList">
-                <li class="menuImg">our special</li>
+                <li class="menuImg">
+                    <span class="name">our special</span>
+                    <span class="price">$10</span>
+                    <button class="addBtn">Add</button>
+                </li>
                 <li class="menuImg">sesami</li>
             </ul>
             <ul id="meatList" class="menuList">
-                <li class="menuImg">beer</li>
+                <li class="menuImg">beef
+                    <span class="name">beef</span>
+                    <span class="price">$10</span>
+                    <button class="addBtn">Add</button>
+                </li>
                 <li class="menuImg">vegan</li>
             </ul>
             <ul id="vegesList" class="menuList">
@@ -41,7 +48,7 @@
                 <li class="menuImg">pickle</li>
             </ul>
         </div>
-        <button>Buy Now</button>
+        <button class="buyNowBtn">Buy Now</button>
     </section>
 </body>
 </html>

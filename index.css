@@ -36,12 +36,12 @@ li {
 }
 
 .navbar #cart #cartContent{
+    background-color: white;
     border: black solid;
     display: none;
-    height: 100px;
-    width: 100px;
     position: absolute;
-    top: 60px;   
+    top: 60px;
+    right: 10px;
 }
 
 .menuImg {
