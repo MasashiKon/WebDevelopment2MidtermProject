@@ -56,3 +56,8 @@ li {
     grid-template-columns: 1fr 1fr;
     border: black solid;
 }
+
+#customizeDiv {
+    display: flex;
+    justify-content: center;
+}

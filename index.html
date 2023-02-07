@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/b4b4f89259.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.slim.js" integrity="sha256-DKU1CmJ8kBuEwumaLuh9Tl/6ZB6jzGOBV/5YpNE2BWc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js"></script>
     <script defer src="index.js"></script>
     <link rel="stylesheet" href="index.css">
     <title>Document</title>
@@ -22,31 +24,58 @@
     </nav>
 
     <section class="menu">
-        <div id="menuList" class="menuList"> 
-            <ul id="breadList" class="menuList">
-                <li class="menuImg">
-                    <span class="name">our special</span>
-                    <span class="price">$10</span>
-                    <button class="addBtn">Add</button>
-                </li>
-                <li class="menuImg">sesami</li>
-            </ul>
-            <ul id="meatList" class="menuList">
-                <li class="menuImg">beef
-                    <span class="name">beef</span>
-                    <span class="price">$10</span>
-                    <button class="addBtn">Add</button>
-                </li>
-                <li class="menuImg">vegan</li>
-            </ul>
-            <ul id="vegesList" class="menuList">
-                <li class="menuImg">lettuce</li>
-                <li class="menuImg">tomato</li>
-            </ul>
-            <ul id="otherList" class="menuList">
-                <li class="menuImg">cheese</li>
-                <li class="menuImg">pickle</li>
-            </ul>
+        <div id="customizeDiv">
+            <div id="menuList" class="menuList"> 
+                <ul id="breadList" class="menuList">
+                    <li class="menuItem">
+                        <div class="name">loading...</div>
+                        <div class="price">loading...</div>
+                        <button class="addBtn">Add</button>
+                    </li>
+                    <li class="menuItem">
+                        <div class="name">loading...</div>
+                        <div class="price">loading...</div>
+                        <button class="addBtn">Add</button>
+                    </li>
+                </ul>
+                <ul id="meatList" class="menuList">
+                    <li class="menuItem">
+                        <div class="name">loading...</div>
+                        <div class="price">loading...</div>
+                        <button class="addBtn">Add</button>
+                    </li>
+                    <li class="menuItem">
+                        <div class="name">loading...</div>
+                        <div class="price">loading...</div>
+                        <button class="addBtn">Add</button>
+                    </li>
+                </ul>
+                <ul id="vegesList" class="menuList">
+                    <li class="menuItem">
+                        <div class="name">loading...</div>
+                        <div class="price">loading...</div>
+                        <button class="addBtn">Add</button>
+                    </li>
+                    <li class="menuItem">
+                        <div class="name">loading...</div>
+                        <div class="price">loading...</div>
+                        <button class="addBtn">Add</button>
+                    </li>
+                </ul>
+                <ul id="otherList" class="menuList">
+                    <li class="menuItem">
+                        <div class="name">loading...</div>
+                        <div class="price">loading...</div>
+                        <button class="addBtn">Add</button>
+                    </li>
+                    <li class="menuItem">
+                        <div class="name">loading...</div>
+                        <div class="price">loading...</div>
+                        <button class="addBtn">Add</button>
+                    </li>
+                </ul>
+            </div>
+            <div id="canvas"></div>
         </div>
         <button class="buyNowBtn">Buy Now</button>
     </section>

@@ -1,0 +1,51 @@
+{ "product":
+    [
+        {"id": 1, 
+        "name": "original",
+        "type": "bun",
+        "price": 5
+        },
+        {
+        "id": 2,
+        "name": "sesami",
+        "type": "bun",
+        "price": 5
+        },
+        {
+        "id": 3,
+        "name": "beef",
+        "type": "patty",
+        "price": 3
+        },
+        {
+        "id": 4,
+        "name": "vegan",
+        "type": "patty",
+        "price": 3
+        },
+        {
+        "id": 5,
+        "name": "lettuce",
+        "type": "vegetable",
+        "price": 2
+        },
+        {
+        "id": 6,
+        "name": "tomato",
+        "type": "vegetable",
+        "price": 2
+        },
+        {
+        "id": 7,
+        "name": "cheese",
+        "type": "option",
+        "price": 2
+        },
+        {
+        "id": 8,
+        "name": "pickle",
+        "type": "option",
+        "price": 2
+        }
+    ]
+}
