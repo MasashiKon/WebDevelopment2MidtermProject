@@ -1,5 +1,3 @@
-const { rejects } = require("assert");
-
 let cartList = [];
 let cartId = 1;
 let canvas;
