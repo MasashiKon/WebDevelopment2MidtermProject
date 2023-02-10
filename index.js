@@ -2,10 +2,12 @@ let cartList = [];
 let cartId = 1;
 let buns = {isOrdered: false, type: null};
 let isBought = false;
+let burgerFixed = false;
 let burgerHeight = [];
 let gap = 0;
 let animCount = 1;
 let topBunFrame = 1;
+let burgerCount = 1;
 
 const setList = async () => {
 
@@ -19,6 +21,7 @@ const setList = async () => {
                 listItem.children(".name").text(menu[i].name);
                 listItem.children(".price").text(`$${menu[i].price}`);
             }
+            listItem.css("padding", "10px")
         });
 
         $("#cart").click(function(e) {
@@ -62,6 +65,39 @@ const setList = async () => {
 
         });
 
+        $(".makeItBurgerBtn").click(function() {
+            if(burgerFixed) {
+                burgerFixed = false;
+                $(this).text("Make it Burger");
+                gap = 0;
+                animCount = 1;
+                topBunFrame = 1;
+                $(".addBtn").removeAttr('disabled');
+                $(".addToCartBtn").css("visibility", "hidden");
+            } else {
+                burgerFixed = true;
+                $(this).text("Try Another Burger");
+                $(".addBtn").attr('disabled','disabled');
+                $(".addToCartBtn").css("visibility", "visible");
+            }
+        });
+
+        $(".addToCartBtn").click(function() {
+            if(cartList.filter(food => food.type !== "burger").length > 0) {
+                const name = `Your Burger${burgerCount++}`
+                const price = cartList.reduce((pre, crr) => pre += crr.price, 0);
+                const type = "burger";
+    
+                cartList.push({cartId: cartId++, name, price, type});
+
+                cartList = cartList.filter(food => food.type === "burger");
+
+                updateCart();
+
+                $(this).css("visibility", "hidden");
+            }
+        });
+
     } catch(e) {
         throw new Error(e);
     }
@@ -91,7 +127,7 @@ function updateCart() {
     for(let food of cartList) {
 
         const itemName = $("<div></div").text(`${food.name}`);
-        const itemPrice = $("<span></span>").text(`${food.price}`);
+        const itemPrice = $("<span></span>").text(`$${food.price}`);
         const removeBnt = $("<button></button>").text("Remove");
         
         total += food.price;
@@ -110,6 +146,7 @@ function updateCart() {
 
         listItem.append(itemName);
         listItem.append(itemPrice);
+        listItem.append("<br/>");
         listItem.append(removeBnt);
 
         listItem.css({
@@ -158,13 +195,23 @@ function setup() {
 
 function draw() {
     background(255);
+    fill(0);
+    textSize(20);
+    text(`$${cartList.reduce((pre, crr) => {
+        if(crr.type === "burger") return pre;
+        return pre += crr.price;
+    }, 0)}`, width / 10, width  / 10);
     translate(width / 2, 0);
     bottomBun();
     rectMode(CENTER);
     const availableArea = buns.isOrdered ? height - height / 4 : height;
-    const numOfFoods = buns.isOrdered ? cartList.length - 1 : cartList.length
-    const foodList = cartList.filter(orderItem => orderItem.type !== "bun");
-    if(isBought) {
+    const numOfFoods = buns.isOrdered ? cartList.length - 1 : cartList.length;
+    let burgerType;
+    const foodList = cartList.filter(orderItem => {
+        if(orderItem.type === "bun") burgerType = orderItem.name;
+        return orderItem.type !== "bun" && orderItem.type !== "burger";
+    });
+    if(burgerFixed) {
         if(gap > 0) {
             gap -= animCount++;
         } else {
@@ -190,9 +237,9 @@ function draw() {
                 case "patty":
                     foodHeight += width / 40;      
                     if(gap < width / 40) {
-                        patty(gap + foodHeight);
+                        patty(gap + foodHeight, foodList[i].name);
                     } else {
-                        patty(gap * (i + 1)); 
+                        patty(gap * (i + 1), foodList[i].name); 
                     }
                     if(i === foodList.length - 1) {
                         foodHeight += width / 40;
@@ -201,9 +248,9 @@ function draw() {
                 case "vegetable":
                     foodHeight += width / 60;      
                     if(gap < width / 60) {
-                        vegetable(gap + foodHeight);
+                        vegetable(gap + foodHeight, foodList[i].name);
                     } else {
-                        vegetable(gap * (i + 1)); 
+                        vegetable(gap * (i + 1), foodList[i].name); 
                     }
                     if(i === foodList.length - 1) {
                         foodHeight += width / 60;
@@ -212,9 +259,9 @@ function draw() {
                 case "option":
                     foodHeight += width / 80;      
                     if(gap < width / 80) {
-                        option(gap + foodHeight);
+                        option(gap + foodHeight, foodList[i].name);
                     } else {
-                        option(gap * (i + 1)); 
+                        option(gap * (i + 1), foodList[i].name); 
                     }
                     if(i === foodList.length - 1) {
                         foodHeight += width / 80;
@@ -237,9 +284,9 @@ function draw() {
                     }
                     foodHeight += width / 40;
                     if(gap < width / 40) {
-                        patty(gap + foodHeight);
+                        patty(gap + foodHeight, foodList[i].name);
                     } else {
-                        patty(gap * (i + 1)); 
+                        patty(gap * (i + 1), foodList[i].name); 
                     }
                     if(i === foodList.length - 1) {
                         foodHeight += width / 40;
@@ -259,9 +306,9 @@ function draw() {
                     }
                     foodHeight += width / 60;
                     if(gap < width / 60) {
-                        vegetable(gap + foodHeight);
+                        vegetable(gap + foodHeight, foodList[i].name);
                     } else {
-                        vegetable(gap * (i + 1)); 
+                        vegetable(gap * (i + 1), foodList[i].name); 
                     }
                     if(i === foodList.length - 1) {
                         foodHeight += width / 60;
@@ -281,9 +328,9 @@ function draw() {
                     }
                     foodHeight += width / 80;
                     if(gap < width / 80) {
-                        option(gap + foodHeight);
+                        option(gap + foodHeight, foodList[i].name);
                     } else {
-                        option(gap * (i + 1)); 
+                        option(gap * (i + 1), foodList[i].name); 
                     }
                     if(i === foodList.length - 1) {
                         foodHeight += width / 80;
@@ -291,33 +338,69 @@ function draw() {
                     break;
             }
         }
-
     }
-    topBun(foodHeight, gap);
+    topBun(foodHeight, gap, burgerType);
 }
 
-function topBun(foodHeight, gap) {
+function topBun(foodHeight, gap, type) {
     if(!buns.isOrdered) return;
-    fill(255);
     const finalHeight = height - foodHeight - width / 10;
     const topBunGap = finalHeight - (height - width / 7 * 6);
-    arc(0, gap <= 0.5 ? finalHeight - topBunGap * topBunFrame : width / 7, width / 5, width/ 7, PI, TWO_PI , CHORD);
+    const val = gap <= 0.5 ? finalHeight - topBunGap * topBunFrame - width / 7 / 4 : width/ 7 - width / 7 / 4;
+    if(type === "original") {
+        fill("#9C7A3E");
+        arc(0, gap <= 0.5 ? finalHeight - topBunGap * topBunFrame : width / 7, width / 5, width/ 7, PI, TWO_PI , CHORD);
+    } else {
+        fill("#9C7A3E");
+        arc(0, gap <= 0.5 ? finalHeight - topBunGap * topBunFrame : width / 7, width / 5, width/ 7, PI, TWO_PI , CHORD);
+        fill(30);
+        translate(0, val);
+        angleMode(DEGREES);
+        for(let i = 0; i < 50; i++) {
+            translate(map(noise(i), 0, 1, -width / 7 / 3, width / 7 / 3), map(noise(100 + i), 0, 1, -width / 7 / 3, width / 7 / 3));
+            rotate(6 * i);
+            ellipse(0, 0, width / 300, width/ 100); 
+            rotate(-6 * i);
+            translate(-map(noise(i), 0, 1, -width / 7 / 3, width / 7 / 3), -map(noise(100 + i), 0, 1, -width / 7 / 3, width / 7 / 3));
+        }
+        angleMode(RADIANS);
+        translate(0, -val);
+    }
+
 };
 
 function bottomBun() {
     if(!buns.isOrdered) return;
-    fill(255);
+    fill("#9C7A3E");
     arc(0, height - width / 10, width / 5, width / 10, 0, PI, CHORD);
 };
 
-function patty(y) {
-    rect(0, buns.isOrdered ? height - y - width / 10 : height - y, width / 4, width / 20, 10);
+function patty(y, type) {
+    if(type === "beef") {
+        fill(150, 50, 50);
+        rect(0, buns.isOrdered ? height - y - width / 10 : height - y, width / 4, width / 20, 10);
+    } else if(type === "vegan") {
+        fill("#865151");
+        rect(0, buns.isOrdered ? height - y - width / 10 : height - y, width / 4, width / 20, 10);
+    }
 };
 
-function vegetable(y) {
-    rect(0, buns.isOrdered ? height - y - width / 10 : height - y, width / 4, width / 30, 10);
+function vegetable(y, type) {
+    if(type === "tomato") {
+        fill("#EE3D3D");
+        rect(0, buns.isOrdered ? height - y - width / 10 : height - y, width / 5, width / 30, 2);
+    } else if(type === "lettuce") {
+        fill("#94DC42");
+        rect(0, buns.isOrdered ? height - y - width / 10 : height - y, width / 3, width / 30, 10);
+    }
 };
 
-function option(y) {
-    rect(0, buns.isOrdered ? height - y - width / 10 : height - y, width / 4, width / 40, 10);
+function option(y, type) {
+    if(type === "cheese") {
+        fill("#FFCC33");
+        rect(0, buns.isOrdered ? height - y - width / 10 : height - y, width / 4, width / 40, 10);
+    } else if(type === "pickle") {
+        fill("#4A7321");
+        rect(0, buns.isOrdered ? height - y - width / 10 : height - y, width / 10, width / 40, 10);
+    }
 };

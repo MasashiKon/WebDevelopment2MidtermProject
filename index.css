@@ -57,7 +57,17 @@ li {
     border: black solid;
 }
 
+.innerMenuList {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
 #customizeDiv {
     display: flex;
     justify-content: center;
+}
+
+.addToCartBtn {
+    visibility: hidden;
 }
